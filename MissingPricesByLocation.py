@@ -1,54 +1,56 @@
+from datetime import date, datetime
 from operator import index
 from stringprep import in_table_a1
 import pandas as pd
 import matplotlib.pyplot as plt
 import numpy as np
 
-data = pd.read_csv('/Users/marlenebultemann/Desktop/HTW/UM/correlation-of-spatial-data/20220906Data2011_2020.csv')
+#this might help as the problem is very similar: https://stackoverflow.com/questions/29007830/identifying-consecutive-nans-with-pandas
 
-data2 = data.loc[:2000,['munic','fdate', 'ETHANOLrp', 'GASOLINErp']]
+data = pd.read_csv('/Users/marlenebultemann/Desktop/HTW/UM/correlation-of-spatial-data/20220906Data2011_2020.csv')
+enddate = pd.to_datetime('01jan2020')
+ 
+data2 = data.loc[:,['munic','fdate', 'ETHANOLrp', 'GASOLINErp']]
+data2['fdate'] = pd.to_datetime(data2['fdate'])
+data2 = data2[~(data2['fdate'] > enddate)]
 
 municList = data2['munic'].drop_duplicates().dropna().tolist()
 result = pd.DataFrame(columns=['munic', 'ETHANOLrp_NaN', 'GASOLINErp_NaN'])
 
-"""for i in range(len(municList)):
+for i in range(len(municList)):
     munic_df = data2[data2['munic']== municList[i]].isna().sum()
     row = pd.Series({'munic': municList[i], 'ETHANOLrp_NaN': munic_df.loc['ETHANOLrp'], 'GASOLINErp_NaN':munic_df.loc['GASOLINErp']})
     result = pd.concat([result, row.to_frame().T], ignore_index=True)
-print(result)
 result.to_csv('/Users/marlenebultemann/Desktop/HTW/UM/correlation-of-spatial-data/result.csv')
-"""
 df = pd.DataFrame()
-#extract and possibly drop: hier weiter: zählen, wie viele hintereinander 0 --> dann automatisch ausfüllen
+result2= pd.DataFrame()
+
+#missing in ethanol
 for i in range(len(municList)):
-    df = data2[data2['munic']== municList[i]]
-    #munic_df['consecutive'] = munic_df.loc[i, 'ETHANOLrp'].groupby((munic_df.loc[i, 'ETHANOLrp'] != munic_df.loc[i,'ETHANOLrp'].shift()).cumsum()).transform('size') * munic_df.loc[i,'ETHANOLrp']
-    #counter = 0
+    df = data2[data2['munic']==municList[i]]
     df['Group']=df.ETHANOLrp.notnull().astype(int).cumsum()
     df=df[df.ETHANOLrp.isnull()]
-    df=df[df.Group.isin(df.Group.value_counts()[df.Group.value_counts()>3].index)]
+    df=df[df.Group.isin(df.Group.value_counts()[df.Group.value_counts()>4].index)]
     df['count']=df.groupby('Group')['Group'].transform('size')
-    df.drop_duplicates(['Group'],keep='first')
+    df = df.drop_duplicates(['Group'], keep='first')
+    result2 = result2.append(df, ignore_index=True)
+result2.to_csv('/Users/marlenebultemann/Desktop/HTW/UM/correlation-of-spatial-data/result2.csv')
+ 
+#missing in gasoline
+result3= pd.DataFrame()
+for i in range(len(municList)):
+    df = data2[data2['munic']==municList[i]]
+    df['Group']=df.GASOLINErp.notnull().astype(int).cumsum()
+    df=df[df.GASOLINErp.isnull()]
+    df=df[df.Group.isin(df.Group.value_counts()[df.Group.value_counts()>4].index)]
+    df['count']=df.groupby('Group')['Group'].transform('size')
+    df = df.drop_duplicates(['Group'],keep='first')
+    result3 = result3.append(df, ignore_index=True)
+result3.to_csv('/Users/marlenebultemann/Desktop/HTW/UM/correlation-of-spatial-data/result3.csv')
 
-    print(df)
-
-    """if np.isnan(munic_df['ETHANOLrp'].iloc[i]) == np.isnan(munic_df['ETHANOLrp'].iloc[i-1]):
-        print("x")
-        munic_df['consecutive'] = counter +1
-    else:
-        print("y")
-        munic_df['consecutive'] = 0
-    print(munic_df)
-    print(max(munic_df['consecutive']))
-
-    #row = pd.Series({'munic': municList[i], 'Cumulative_NaN': cumNaN})
-    #resultNaN = pd.concat([resultNaN, row.to_frame().T], ignore_index=True)
-"""
-"""
-Steps:
+"""Steps:
 - filter how many are nan consecutively
 - if 4 or less, fill automatically
 - add column: assign value for full period, first period or drop
 - if more than a specific number is missing, drop municipality
-
 """
