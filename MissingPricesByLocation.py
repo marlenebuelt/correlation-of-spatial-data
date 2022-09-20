@@ -51,6 +51,6 @@ result3.to_csv('/Users/marlenebultemann/Desktop/HTW/UM/correlation-of-spatial-da
 """Steps:
 - filter how many are nan consecutively
 - if 4 or less, fill automatically
-- add column: assign value for full period, first period or drop
+- add column: assign value for full period, first period or drop - do manually?
 - if more than a specific number is missing, drop municipality
 """
