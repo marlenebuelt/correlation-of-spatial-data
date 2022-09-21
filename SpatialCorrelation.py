@@ -23,7 +23,7 @@ munic_map = gpd.read_file('/Users/marlenebultemann/Desktop/HTW/UM/correlation-of
 munic_map.to_crs(epsg=4326).plot()
 
 crs = {'init':'EPSG:4326'}
-""" geometry = [Point(xy) for xy in zip(df['longitude'], df['latitude'])]
+geometry = [Point(xy) for xy in zip(df['longitude'], df['latitude'])]
 geo_df = gpd.GeoDataFrame(df, crs = crs, geometry = geometry)
 
 fig, ax = plt.subplots(figsize = (10,10))
@@ -56,37 +56,4 @@ geo_df2.plot(ax=ax, alpha = .1 )
 
 ax.set_title('Municipalities_Drop')
 plt.savefig('Municipalities_drop')
-plt.show()
- """
-#step3: combine the two in one map
-geometry = [Point(xy) for xy in zip(df['longitude'], df['latitude'])]
-geometry2 =[Point(xy) for xy in zip(df_drop['longitude'], df_drop['latitude'])]
-geo_df = gpd.GeoDataFrame(df, crs = crs, geometry = geometry)
-geo_df2 = gpd.GeoDataFrame(df_drop, crs = crs, geometry2 = geometry2)
-
-#all munics
-fig, ax = plt.subplots(figsize = (10,10))
-munic_map.to_crs(epsg=4326).plot(ax=ax, color='red')
-munic_map.plot(ax=ax, color='black')
-geo_df.plot(ax=ax, color = 'green')
-ax.set_title('Municipalities_drop')
-
-fig, ax = plt.subplots(figsize = (10,10))
-munic_map.to_crs(epsg=4326).plot(ax=ax, color='pink')
-geo_df.plot(ax=ax, alpha = .1 )
-
-#those we drop
-fig, ax = plt.subplots(figsize = (10,10))
-munic_map.to_crs(epsg=4326).plot(ax=ax, color='red')
-munic_map.plot(ax=ax, color='black')
-geo_df2.plot(ax=ax, color = 'yellow')
-ax.set_title('Municipalities_drop')
-
-fig, ax = plt.subplots(figsize = (10,10))
-munic_map.to_crs(epsg=4326).plot(ax=ax, color='pink')
-geo_df2.plot(ax=ax, alpha = .1, color = 'yellow')
-
-#trying to plot both
-ax.set_title('Municipalities_Summary')
-plt.savefig('Municipalities_Summary')
 plt.show()

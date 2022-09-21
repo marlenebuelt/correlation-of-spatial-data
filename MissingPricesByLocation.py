@@ -22,6 +22,7 @@ for i in range(len(municList)):
     row = pd.Series({'munic': municList[i], 'ETHANOLrp_NaN': munic_df.loc['ETHANOLrp'], 'GASOLINErp_NaN':munic_df.loc['GASOLINErp']})
     result = pd.concat([result, row.to_frame().T], ignore_index=True)
 result.to_csv('/Users/marlenebultemann/Desktop/HTW/UM/correlation-of-spatial-data/result.csv')
+
 df = pd.DataFrame()
 result2= pd.DataFrame()
 
@@ -34,7 +35,7 @@ for i in range(len(municList)):
     df['count']=df.groupby('Group')['Group'].transform('size')
     df = df.drop_duplicates(['Group'], keep='first')
     result2 = result2.append(df, ignore_index=True)
-result2.to_csv('/Users/marlenebultemann/Desktop/HTW/UM/correlation-of-spatial-data/result2.csv')
+result2.to_csv('/Users/marlenebultemann/Desktop/HTW/UM/correlation-of-spatial-data/Missing_Ethanol.csv')
  
 #missing in gasoline
 result3= pd.DataFrame()
@@ -46,7 +47,7 @@ for i in range(len(municList)):
     df['count']=df.groupby('Group')['Group'].transform('size')
     df = df.drop_duplicates(['Group'],keep='first')
     result3 = result3.append(df, ignore_index=True)
-result3.to_csv('/Users/marlenebultemann/Desktop/HTW/UM/correlation-of-spatial-data/result3.csv')
+result3.to_csv('/Users/marlenebultemann/Desktop/HTW/UM/correlation-of-spatial-data/Missing_Gasoline.csv')
 
 """Steps:
 - filter how many are nan consecutively
