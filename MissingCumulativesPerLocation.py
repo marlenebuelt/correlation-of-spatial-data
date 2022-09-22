@@ -1,32 +1,27 @@
 from datetime import date, datetime
+from itertools import count
 from operator import index
 from stringprep import in_table_a1
 import pandas as pd
 import matplotlib.pyplot as plt
 import numpy as np
 
-#this might help as the problem is very similar: https://stackoverflow.com/questions/29007830/identifying-consecutive-nans-with-pandas
+#inspired by: https://stackoverflow.com/questions/29007830/identifying-consecutive-nans-with-pandas
 
+#convert dates and drop anything after january 1st, 2020
 data = pd.read_csv('/Users/marlenebultemann/Desktop/HTW/UM/correlation-of-spatial-data/20220906Data2011_2020.csv')
 enddate = pd.to_datetime('01jan2020')
- 
-data2 = data.loc[:,['munic','fdate', 'ETHANOLrp', 'GASOLINErp']]
+
+data2 = data.loc[:10000,['munic','fdate', 'ETHANOLrp', 'GASOLINErp']]
 data2['fdate'] = pd.to_datetime(data2['fdate'])
 data2 = data2[~(data2['fdate'] > enddate)]
 
 municList = data2['munic'].drop_duplicates().dropna().tolist()
-result = pd.DataFrame(columns=['munic', 'ETHANOLrp_NaN', 'GASOLINErp_NaN'])
-
-for i in range(len(municList)):
-    munic_df = data2[data2['munic']== municList[i]].isna().sum()
-    row = pd.Series({'munic': municList[i], 'ETHANOLrp_NaN': munic_df.loc['ETHANOLrp'], 'GASOLINErp_NaN':munic_df.loc['GASOLINErp']})
-    result = pd.concat([result, row.to_frame().T], ignore_index=True)
-result.to_csv('/Users/marlenebultemann/Desktop/HTW/UM/correlation-of-spatial-data/result.csv')
 
 df = pd.DataFrame()
 result2= pd.DataFrame()
 
-#missing in ethanol
+#missing cumulatives in ethanol --> count column shows number of weeks
 for i in range(len(municList)):
     df = data2[data2['munic']==municList[i]]
     df['Group']=df.ETHANOLrp.notnull().astype(int).cumsum()
@@ -35,9 +30,10 @@ for i in range(len(municList)):
     df['count']=df.groupby('Group')['Group'].transform('size')
     df = df.drop_duplicates(['Group'], keep='first')
     result2 = result2.append(df, ignore_index=True)
+result2 = result2[['munic', 'fdate', 'count']]
 result2.to_csv('/Users/marlenebultemann/Desktop/HTW/UM/correlation-of-spatial-data/Missing_Ethanol.csv')
- 
-#missing in gasoline
+
+#missing cumulatives in gasoline --> count column shows number of weeks
 result3= pd.DataFrame()
 for i in range(len(municList)):
     df = data2[data2['munic']==municList[i]]
@@ -47,11 +43,5 @@ for i in range(len(municList)):
     df['count']=df.groupby('Group')['Group'].transform('size')
     df = df.drop_duplicates(['Group'],keep='first')
     result3 = result3.append(df, ignore_index=True)
+result3 = result3[['munic', 'fdate', 'count']]
 result3.to_csv('/Users/marlenebultemann/Desktop/HTW/UM/correlation-of-spatial-data/Missing_Gasoline.csv')
-
-"""Steps:
-- filter how many are nan consecutively
-- if 4 or less, fill automatically
-- add column: assign value for full period, first period or drop - do manually?
-- if more than a specific number is missing, drop municipality
-"""

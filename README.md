@@ -4,17 +4,17 @@
 Tried to summarize null-values here. Will possibly be deleted soon.
 
 ## DropMunics
-Determines, which municipalities we drop and merges them to a large file.
-The merge part might be deleted soon.
+Determines which municipalities we drop and merges them to a large file. Might be extended to changing the dataset so we have it all in one place
+The merge part might be deleted soon as we cant use it.
 
-## MissingDataByLocation
-summarizes how many locations are missing data on each date
+## MissingDatesPerLocation
+Missing totals per location
 
 ## MissingDates
-will be deleted
+returns how many municipalities didn't enter values on a specific date
 
-## MissingPricesByLocation
-Missing totals per location
+## MissingCumulativesByLocation
+Cumulative sums of missing weeks
 
 ## SpatialCorrelation_CombinedMap
 will possibly be deleted as plotting two scenarios in one map does not work out.

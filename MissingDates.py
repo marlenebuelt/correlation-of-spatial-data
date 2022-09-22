@@ -14,5 +14,4 @@ for i in range(len(dateList)):
     count = date_df['ETHANOLrp'].isna().sum()
     row = pd.Series({'fdate': dateList[i], 'ETHANOLrp_NaN': date_df['ETHANOLrp'].isna().sum(), 'GASOLINErp_NaN':date_df['GASOLINErp'].isna().sum()})
     result = pd.concat([result, row.to_frame().T], ignore_index=True)
-print(result)
 result.to_csv('/Users/marlenebultemann/Desktop/HTW/UM/correlation-of-spatial-data/missingByDate.csv')
