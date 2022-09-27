@@ -10,7 +10,7 @@ from shapely.geometry import Point, Polygon
 #inspired by: https://builtin.com/data-science/exploratory-spatial-data-analysis-esda, 
 # combining dataframes: https://towardsdatascience.com/exploratory-spatial-data-analysis-esda-spatial-autocorrelation-7592edcbef9a
 #https://towardsdatascience.com/plotting-maps-with-geopandas-428c97295a73
-#overall file:
+#overall file: will be replaced with files for scenarios
 data = pd.read_csv('/Users/marlenebultemann/Desktop/HTW/UM/correlation-of-spatial-data/20220906Data2011_2020.csv')
 
 df = data.loc[:5000,['munic','ETHANOLrp','longitude', 'latitude']].dropna()

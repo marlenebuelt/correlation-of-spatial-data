@@ -3,6 +3,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 #convert dates and drop anything after january 1st, 2020
+#this file will be used for creating new files for the different scenarios
 data = pd.read_csv('/Users/marlenebultemann/Desktop/HTW/UM/correlation-of-spatial-data/20220906Data2011_2020.csv')
 enddate = pd.to_datetime('01jan2020')
 
