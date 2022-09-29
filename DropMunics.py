@@ -1,32 +1,29 @@
 import pandas as pd
 import matplotlib.pyplot as plt
 import numpy as np
+import GlobalVars as gv
+#TO DO: Plot, replace all NA-Values
 
 #import data - result2 --> missing cumulatives from ethanol (see MissinCumulativesPerLocation.py)
 df = pd.read_csv('/Users/marlenebultemann/Desktop/HTW/UM/correlation-of-spatial-data/20220906Data2011_2020.csv')
 dropfile = pd.read_csv('/Users/marlenebultemann/Desktop/HTW/UM/correlation-of-spatial-data/dropfile.csv', sep=';')
+df['fdate'] = pd.to_datetime(df['fdate'])
 
 #subperiod 1
-startdate = pd.to_datetime('2011-1-1')
-enddate = pd.to_datetime('2015-8-12')
-df['fdate'] = pd.to_datetime(df['fdate'])
-df1 = df.loc[~(df['fdate'] <= startdate)]
-df1 = df.loc[~(df['fdate'] >= enddate)]
+df1 = df.loc[~(df['fdate'] <= gv.subperiod1_start())]
+df1 = df.loc[~(df['fdate'] >= gv.subperiod1_end())]
 
 df_subperiod1 = dropfile.loc[:, ['munic', 'Subperiod 1 (Jan 1, 2011 - August 12, 2015)']]
 df_subperiod1 = df_subperiod1[df_subperiod1['Subperiod 1 (Jan 1, 2011 - August 12, 2015)']==1]
 df_subperiod1 = pd.merge(df1, df_subperiod1, how='inner')
 df_subperiod1.to_csv('/Users/marlenebultemann/Desktop/HTW/UM/correlation-of-spatial-data/data_subperiods/subperiod1.csv')
-#nex tstep: plot
+#next step: plot
 df_subperiod1.plot(x='munic', y='fdate')
 plt.show()
 
 #subperiod 2
-startdate = pd.to_datetime('2016-1-1')
-enddate = pd.to_datetime('2017-8-5')
-df['fdate'] = pd.to_datetime(df['fdate'])
-df = df.loc[~(df['fdate'] <= startdate)]
-df = df.loc[~(df['fdate'] >= enddate)]
+df = df.loc[~(df['fdate'] <= gv.subperiod2_start())]
+df = df.loc[~(df['fdate'] >= gv.subperiod2_end())]
 
 df_subperiod2 = dropfile.loc[:, ['munic', 'Subperiod 2 (January 1, 2016 - August 5, 2017)']]
 df_subperiod2 = df_subperiod2[df_subperiod2['Subperiod 2 (January 1, 2016 - August 5, 2017)']==1]
@@ -34,35 +31,17 @@ df_subperiod2 = pd.merge(df, df_subperiod2, how='inner')
 df_subperiod2.to_csv('/Users/marlenebultemann/Desktop/HTW/UM/correlation-of-spatial-data/data_subperiods/subperiod2.csv')
 
 #subperiod 3
-startdate = pd.to_datetime('2017-8-13')
-enddate = pd.to_datetime('2019-12-31')
-df['fdate'] = pd.to_datetime(df['fdate'])
-df3 = df.loc[~(df['fdate'] <= startdate)]
-df3 = df.loc[~(df['fdate'] >= enddate)]
+df3 = df.loc[~(df['fdate'] <= gv.subperiod3_start())]
+df3 = df.loc[~(df['fdate'] >= gv.subperiod3_end())]
 
 df_subperiod3 = dropfile.loc[:, ['munic', '(August 13, 2017 - December 31, 2019)']]
 df_subperiod3 = df_subperiod3[df_subperiod3['(August 13, 2017 - December 31, 2019)']==1]
 df_subperiod3 = pd.merge(df3, df_subperiod2, how='inner')
 df_subperiod3.to_csv('/Users/marlenebultemann/Desktop/HTW/UM/correlation-of-spatial-data/data_subperiods/subperiod3.csv')
 
-#subperiod 5 --> full period
-startdate = pd.to_datetime('2011-1-1')
-enddate = pd.to_datetime('2019-12-31')
-df['fdate'] = pd.to_datetime(df['fdate'])
-df = df.loc[~(df['fdate'] <= startdate)]
-df = df.loc[~(df['fdate'] >= enddate)]
-
-df_subperiod5 = dropfile.loc[:, ['munic', 'Full ']]
-df_subperiod5 = df_subperiod5[df_subperiod5['Full ']==1]
-df_subperiod5 = pd.merge(df, df_subperiod5, how='inner')
-df_subperiod5.to_csv('/Users/marlenebultemann/Desktop/HTW/UM/correlation-of-spatial-data/data_subperiods/subperiod5.csv')
-
 #subperiod 4 --> Jan 1, 2016 - dec 31, 2019
-startdate = pd.to_datetime('2016-1-1')
-enddate = pd.to_datetime('2019-12-31')
-df['fdate'] = pd.to_datetime(df['fdate'])
-df = df.loc[~(df['fdate'] <= startdate)]
-df = df.loc[~(df['fdate'] >= enddate)]
+df = df.loc[~(df['fdate'] <= gv.subperiod4_start())]
+df = df.loc[~(df['fdate'] >= gv.subperiod4_start())]
 
 municList = df['munic'].drop_duplicates().dropna().tolist()
 maxmissingweeks = 4
@@ -102,3 +81,12 @@ for i in range(len(municList)):
     result = result.append(df_subperiod5, ignore_index=True)
 droplist = result['munic'].drop_duplicates().dropna().tolist()
 print(droplist) # list of munics we don't drop
+
+#subperiod 5 --> full period
+df = df.loc[~(df['fdate'] <= gv.subperiod5_start())]
+df = df.loc[~(df['fdate'] >= gv.subperiod5_end())]
+
+df_subperiod5 = dropfile.loc[:, ['munic', 'Full ']]
+df_subperiod5 = df_subperiod5[df_subperiod5['Full ']==1]
+df_subperiod5 = pd.merge(df, df_subperiod5, how='inner')
+df_subperiod5.to_csv('/Users/marlenebultemann/Desktop/HTW/UM/correlation-of-spatial-data/data_subperiods/subperiod5.csv')
