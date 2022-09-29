@@ -17,9 +17,9 @@ result = pd.DataFrame(columns=['munic', 'ETHANOLrp'])
 #Subperiod 1
 #missing totals for Ethanol and Gasoline
 #munic_df = data2.loc[[data2['fdate']>GlobalVars.subperiod1_start()]:[data2['fdate']<GlobalVars.subperiod1_end()], :]
-munic_df = data2.loc[data2['fdate']>GlobalVars.subperiod1_start()]
-munic_df = data2.loc[data2['fdate']<GlobalVars.subperiod1_end()]
-print(munic_df)
+data2 = data2.loc[data2['fdate']>GlobalVars.subperiod1_start()]
+data2 = data2.loc[data2['fdate']<GlobalVars.subperiod1_end()]
+print(data2)
 for i in range(len(municList)):
     munic_df = data2[data2['munic']== municList[i]].isna().sum()
     row = pd.Series({'munic': municList[i], 'ETHANOLrp': munic_df.loc['ETHANOLrp']})
