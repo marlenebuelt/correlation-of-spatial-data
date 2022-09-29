@@ -22,4 +22,6 @@ will possibly be deleted as plotting two scenarios in one map does not work out.
 ## SpatialCorrelation
 plots all locations and all deleted locations on a map
 
+## 
+
 ### Link to GitHub repository: https://github.com/marlenebuelt/correlation-of-spatial-data - feel free to message me and work on this repo.

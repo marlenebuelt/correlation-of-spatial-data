@@ -1,10 +1,5 @@
-from datetime import date, datetime
-from itertools import count
-from operator import index
-from stringprep import in_table_a1
 import pandas as pd
 import matplotlib.pyplot as plt
-import numpy as np
 
 #inspired by: https://stackoverflow.com/questions/29007830/identifying-consecutive-nans-with-pandas
 

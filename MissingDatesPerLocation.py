@@ -19,4 +19,5 @@ for i in range(len(municList)):
     munic_df = data2[data2['munic']== municList[i]].isna().sum()
     row = pd.Series({'munic': municList[i], 'ETHANOLrp_NaN': munic_df.loc['ETHANOLrp'], 'GASOLINErp_NaN':munic_df.loc['GASOLINErp']})
     result = pd.concat([result, row.to_frame().T], ignore_index=True)
-result.to_csv('/Users/marlenebultemann/Desktop/HTW/UM/correlation-of-spatial-data/result.csv')
+#result.to_csv('/Users/marlenebultemann/Desktop/HTW/UM/correlation-of-spatial-data/result.csv')
+print(result)
