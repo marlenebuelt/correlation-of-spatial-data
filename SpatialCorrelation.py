@@ -16,7 +16,7 @@ data = pd.read_csv('/Users/marlenebultemann/Desktop/HTW/UM/correlation-of-spatia
 df = data.loc[:5000,['munic','ETHANOLrp','longitude', 'latitude']].dropna()
 
 #munics we want to drop:
-df_drop = pd.read_csv('/Users/marlenebultemann/Desktop/HTW/UM/correlation-of-spatial-data/df_merged.csv')
+df_drop = pd.read_csv('/Users/marlenebultemann/Desktop/HTW/UM/correlation-of-spatial-data/data_subperiods/subperiod1.csv')
 
 #Step 1: All municipalities
 munic_map = gpd.read_file('/Users/marlenebultemann/Desktop/HTW/UM/correlation-of-spatial-data/BR_Municipios_2020/BR_Municipios_2020.shp')

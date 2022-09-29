@@ -22,7 +22,7 @@ df_subperiod1.plot(x='munic', y='fdate')
 plt.show()
 
 #subperiod 2
-df = df.loc[~(df['fdate'] <= gv.subperiod2_start())]
+"""df = df.loc[~(df['fdate'] <= gv.subperiod2_start())]
 df = df.loc[~(df['fdate'] >= gv.subperiod2_end())]
 
 df_subperiod2 = dropfile.loc[:, ['munic', 'Subperiod 2 (January 1, 2016 - August 5, 2017)']]
@@ -90,3 +90,4 @@ df_subperiod5 = dropfile.loc[:, ['munic', 'Full ']]
 df_subperiod5 = df_subperiod5[df_subperiod5['Full ']==1]
 df_subperiod5 = pd.merge(df, df_subperiod5, how='inner')
 df_subperiod5.to_csv('/Users/marlenebultemann/Desktop/HTW/UM/correlation-of-spatial-data/data_subperiods/subperiod5.csv')
+"""
