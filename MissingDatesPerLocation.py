@@ -16,7 +16,7 @@ dates_helper = ['startdate', 'enddate']
 data3 = pd.DataFrame()
 data3 = data2
 
-for key, value in subperiods_dict.items():
+"""for key, value in subperiods_dict.items():
     result = pd.DataFrame(columns=['munic'])
     data3 = data2
     for i in range(len(dates_helper)):
@@ -32,3 +32,28 @@ for key, value in subperiods_dict.items():
                 result = pd.concat([result, row.to_frame().T], ignore_index=True)
     final = pd.merge(final, result, on='munic', how='outer')
 final.to_csv('/Users/marlenebultemann/Desktop/HTW/UM/correlation-of-spatial-data/result.csv')
+print(final)"""
+
+#Missing # of obs, missing % of obs, max length missing
+dateList = data2['fdate'].drop_duplicates().dropna().tolist()
+
+for key, value in subperiods_dict.items():
+    i = 0
+    result = pd.DataFrame(columns=[])
+    data3 = data2
+    for i in range(len(dates_helper)):
+        if dates_helper[i] == 'startdate':
+            startdate = value[i]
+        if dates_helper[i] == 'enddate':
+            enddate = value[i]
+            data3 = data3.loc[(data3['fdate']>startdate)]
+            data3 = data3.loc[(data3['fdate']<enddate)]
+            #Missing # of obs
+            for j in range(len(subperiods_dict)):
+                date_df = data3[(data3['fdate']==dateList[i])]
+                row = pd.Series({'Name': 'Missing # of obs', key: date_df['ETHANOLrp'].isna().sum()})
+                result = pd.concat([result, row.to_frame().T], ignore_index=True)
+                i = i +1
+print(result)       
+#final.to_csv('/Users/marlenebultemann/Desktop/HTW/UM/correlation-of-spatial-data/result.csv')
+#print(final)
