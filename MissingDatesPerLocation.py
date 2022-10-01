@@ -14,7 +14,6 @@ final = pd.DataFrame(columns=['munic'])
 subperiods_dict =gv.SubperiodsDict
 dates_helper = ['startdate', 'enddate']
 data3 = pd.DataFrame()
-data3 = data2
 
 """for key, value in subperiods_dict.items():
     result = pd.DataFrame(columns=['munic'])
@@ -36,10 +35,13 @@ print(final)"""
 
 #Missing # of obs, missing % of obs, max length missing
 dateList = data2['fdate'].drop_duplicates().dropna().tolist()
+list = ['Missing # of obs', 'Missing % of obs', 'max length']
+
+final2= pd.DataFrame(columns=['Name'])
+result = pd.DataFrame(columns=['Name'])
 
 for key, value in subperiods_dict.items():
     i = 0
-    result = pd.DataFrame(columns=[])
     data3 = data2
     for i in range(len(dates_helper)):
         if dates_helper[i] == 'startdate':
@@ -48,12 +50,37 @@ for key, value in subperiods_dict.items():
             enddate = value[i]
             data3 = data3.loc[(data3['fdate']>startdate)]
             data3 = data3.loc[(data3['fdate']<enddate)]
+            row = pd.Series({'Name': list[0], key: data3['ETHANOLrp'].isna().sum()})
+            result = pd.concat([result, row.to_frame().T], ignore_index=True)
+            print(result)
+            i = i +1
+    final2 = pd.merge(final2, result, on=['Name'], how='outer')
+#print(final2)
+
+#hierweiter
+"""final3= pd.DataFrame(columns=['Name'])
+result2 = pd.DataFrame(columns=['Name'])
+for key, value in subperiods_dict.items():
+    i = 0
+    data3 = data2
+    print('start')
+    for i in range(len(dates_helper)):
+        if dates_helper[i] == 'startdate':
+            startdate = value[i]
+        if dates_helper[i] == 'enddate':
+            enddate = value[i]
+            data3 = data3.loc[(data3['fdate']>startdate)]
+            data3 = data3.loc[(data3['fdate']<enddate)]
             #Missing # of obs
-            for j in range(len(subperiods_dict)):
-                date_df = data3[(data3['fdate']==dateList[i])]
-                row = pd.Series({'Name': 'Missing # of obs', key: date_df['ETHANOLrp'].isna().sum()})
-                result = pd.concat([result, row.to_frame().T], ignore_index=True)
-                i = i +1
-print(result)       
-#final.to_csv('/Users/marlenebultemann/Desktop/HTW/UM/correlation-of-spatial-data/result.csv')
-#print(final)
+            missing_number = data3['ETHANOLrp'].isna().sum()
+            i = i +1
+            #Missing % of obs
+            totalobs = (data3['ETHANOLrp'].count())
+            missing_percent = missing_number/totalobs
+            print(missing_percent)
+            row = pd.Series({'Name': list[1], key: missing_percent})
+            result2 = pd.concat([result2, row.to_frame().T], ignore_index=True)
+            print(result2)
+    final3 = pd.merge(final3, result2, on='Name', how='outer')
+print(final3)
+"""
