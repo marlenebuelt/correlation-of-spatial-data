@@ -38,11 +38,12 @@ dateList = data2['fdate'].drop_duplicates().dropna().tolist()
 list = ['Missing # of obs', 'Missing % of obs', 'max length']
 
 final2= pd.DataFrame(columns=['Name'])
-result = pd.DataFrame(columns=['Name'])
+
 
 for key, value in subperiods_dict.items():
     i = 0
     data3 = data2
+    result = pd.DataFrame(columns=['Name'])
     for i in range(len(dates_helper)):
         if dates_helper[i] == 'startdate':
             startdate = value[i]
@@ -52,10 +53,9 @@ for key, value in subperiods_dict.items():
             data3 = data3.loc[(data3['fdate']<enddate)]
             row = pd.Series({'Name': list[0], key: data3['ETHANOLrp'].isna().sum()})
             result = pd.concat([result, row.to_frame().T], ignore_index=True)
-            print(result)
             i = i +1
     final2 = pd.merge(final2, result, on=['Name'], how='outer')
-#print(final2)
+print(final2)
 
 #hierweiter
 """final3= pd.DataFrame(columns=['Name'])
