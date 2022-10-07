@@ -3,7 +3,8 @@ import matplotlib.pyplot as plt
 import numpy as np
 import GlobalVars as gv
 #TO DO: Plot, replace all NA-Values
-
+#doublecheck values
+#2,3,5 not correct
 #import data - result2 --> missing cumulatives from ethanol (see MissinCumulativesPerLocation.py)
 df = pd.read_csv('/Users/marlenebultemann/Desktop/HTW/UM/correlation-of-spatial-data/20220906Data2011_2020.csv')
 dropfile = pd.read_csv('/Users/marlenebultemann/Desktop/HTW/UM/correlation-of-spatial-data/dropfile_new.csv', sep=';')
@@ -11,7 +12,7 @@ df['fdate'] = pd.to_datetime(df['fdate'])
 df = df.loc[:5000, ['munic', 'fdate', 'ETHANOLrp']]
 
 #subperiod 1
-"""df1 = df.loc[~(df['fdate'] <= gv.subperiod1_start())]
+df1 = df.loc[~(df['fdate'] <= gv.subperiod1_start())]
 df1 = df.loc[~(df['fdate'] >= gv.subperiod1_end())]
 
 df_subperiod1 = dropfile.loc[:, ['munic', 'Subperiod 1']]
@@ -19,13 +20,14 @@ df_subperiod1 = df_subperiod1[df_subperiod1['Subperiod 1']==1]
 df_subperiod1 = pd.merge(df1, df_subperiod1, how='inner')
 df_subperiod1.to_csv('/Users/marlenebultemann/Desktop/HTW/UM/correlation-of-spatial-data/data_subperiods/subperiod1.csv')
 
+
 #subperiod 2
-df = df.loc[~(df['fdate'] <= gv.subperiod2_start())]
-df = df.loc[~(df['fdate'] >= gv.subperiod2_end())]
+df2 = df.loc[~(df['fdate'] <= gv.subperiod2_start())]
+df2 = df.loc[~(df['fdate'] >= gv.subperiod2_end())]
 
 df_subperiod2 = dropfile.loc[:, ['munic', 'Subperiod 2']]
 df_subperiod2 = df_subperiod2[df_subperiod2['Subperiod 2']==1]
-df_subperiod2 = pd.merge(df, df_subperiod2, how='inner')
+df_subperiod2 = pd.merge(df2, df_subperiod2, how='inner')
 df_subperiod2.to_csv('/Users/marlenebultemann/Desktop/HTW/UM/correlation-of-spatial-data/data_subperiods/subperiod2.csv')
 
 #subperiod 3
@@ -36,7 +38,7 @@ df_subperiod3 = dropfile.loc[:, ['munic', 'Subperiod 3']]
 df_subperiod3 = df_subperiod3[df_subperiod3['Subperiod 3']==1]
 df_subperiod3 = pd.merge(df3, df_subperiod2, how='inner')
 df_subperiod3.to_csv('/Users/marlenebultemann/Desktop/HTW/UM/correlation-of-spatial-data/data_subperiods/subperiod3.csv')
-"""
+
 #subperiod 4 --> Jan 1, 2016 - dec 31, 2019
 df2 = df
 df2 = df2.loc[(df2['fdate']>gv.subperiod4_start())]
@@ -66,7 +68,6 @@ for i in range(len(resultlist)):
 result2 = result2.loc[:, ['munic']]
 result2 = result2.drop_duplicates()
 result2['Subperiod 4'] = 1
-result2.to_csv('/Users/marlenebultemann/Desktop/HTW/UM/correlation-of-spatial-data/data_subperiods/subperiod4.csv')
 
 #Dropped munics
 result = pd.DataFrame()
@@ -85,21 +86,26 @@ for i in range(len(municList)):
 droplist = result['munic'].drop_duplicates().dropna().tolist()
 print(droplist) # list of munics we don't drop
 
-result2 = pd.DataFrame()
+result3 = pd.DataFrame()
 for i in range(len(droplist)):
     item = df3[df3['munic']==droplist[i]]
-    result2 = result2.append(item, ignore_index=True)
-result2 = result2.loc[:, ['munic']]
-result2 = result2.drop_duplicates()
-result2['Subperiod 4'] = 0
-result2.to_csv('/Users/marlenebultemann/Desktop/HTW/UM/correlation-of-spatial-data/data_subperiods/subperiod4_2.csv')
+    result3 = result3.append(item, ignore_index=True)
+result3 = result3.loc[:, ['munic']]
+result3 = result3.drop_duplicates()
+result3['Subperiod 4'] = 0
+result3.to_csv('/Users/marlenebultemann/Desktop/HTW/UM/correlation-of-spatial-data/data_subperiods/subperiod4_2.csv')
 
+result2 = pd.merge(df3, result2, on='munic', how='outer')
+result2.to_csv('/Users/marlenebultemann/Desktop/HTW/UM/correlation-of-spatial-data/data_subperiods/subperiod4.csv')
 
-"""#subperiod 5 --> full period
+#subperiod 5 --> full period
 df = df.loc[~(df['fdate'] <= gv.subperiod5_start())]
 df = df.loc[~(df['fdate'] >= gv.subperiod5_end())]
 
 df_subperiod5 = dropfile.loc[:, ['munic', 'Subperiod 5']]
 df_subperiod5 = df_subperiod5[df_subperiod5['Subperiod 5']==1]
 df_subperiod5 = pd.merge(df, df_subperiod5, how='inner')
-df_subperiod5.to_csv('/Users/marlenebultemann/Desktop/HTW/UM/correlation-of-spatial-data/data_subperiods/subperiod5.csv')"""
+df_subperiod5.to_csv('/Users/marlenebultemann/Desktop/HTW/UM/correlation-of-spatial-data/data_subperiods/subperiod5.csv')
+
+dropfile = pd.merge(dropfile, result2, on = 'munic', how = 'outer')
+print(dropfile)
