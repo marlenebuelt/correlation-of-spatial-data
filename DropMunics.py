@@ -10,8 +10,6 @@ dropfile = pd.read_csv('/Users/marlenebultemann/Desktop/HTW/UM/correlation-of-sp
 
 data2 = data.loc[:10000,['munic','fdate', 'ETHANOLrp']]
 data2['fdate'] = pd.to_datetime(data2['fdate'])
-print(data2)
-
 subperiods_dict =gv.SubperiodsDict
 dates_helper = ['startdate', 'enddate']
 data3 = pd.DataFrame()
@@ -20,12 +18,9 @@ data3 = pd.DataFrame()
 data3 = data2
 data3 = data3.loc[(data3['fdate']>gv.subperiod4_start())]
 data3 = data3.loc[(data3['fdate']<gv.subperiod4_end())]
-print(data3)
 #data3.to_csv('/Users/marlenebultemann/Desktop/HTW/UM/correlation-of-spatial-data/data_subperiods/subperiod4.csv')
 
-#print(data3)
 municList = data3['munic'].drop_duplicates().dropna().tolist()
-print(municList)
 maxmissingweeks = 4 #if the max number of missing weeks needs to be changed, change this variable
 df_subperiod4 = pd.DataFrame()
 result = pd.DataFrame()
@@ -39,19 +34,16 @@ for i in range(len(municList)):
     #returns result all munics with less than 4 weeks in a row missing
     df_subperiod4 = df_subperiod4.drop_duplicates(['Group'], keep='first')
     result = result.append(df_subperiod4, ignore_index=True)
-    print(result)
-resultlist = result['munic'].drop_duplicates().dropna().tolist()
-print(resultlist) # list of munics we don't drop
+resultlist = result['munic'].drop_duplicates().dropna().tolist() # list of munics we don't drop
 
 result2 = pd.DataFrame()
 for i in range(len(resultlist)):
-    df2 = data3[data3['munic']==resultlist[i]]
     item = data3[data3['munic']==resultlist[i]]
+    item['Subperiod 4'] = 1
+    item = item.loc[:, ['munic', 'Subperiod 4']].drop_duplicates().dropna()
     result2 = result2.append(item, ignore_index=True)
-    result2['Subperiod 4'] = 1
-dropfile = pd.merge(dropfile, result2, on = ['munic'], how = 'outer')
-print(dropfile)
-dropfile.to_csv('/Users/marlenebultemann/Desktop/HTW/UM/correlation-of-spatial-data/data_subperiods/subperiod4.csv')
+print(result2)
+#dropfile.to_csv('/Users/marlenebultemann/Desktop/HTW/UM/correlation-of-spatial-data/data_subperiods/subperiod4.csv')
 
 #Double Check: which ones did we drop
 result = pd.DataFrame()
@@ -64,7 +56,17 @@ for i in range(len(municList)):
     df_subperiod4 = df_subperiod4.drop_duplicates(['Group'], keep='first')
     result = result.append(df_subperiod4, ignore_index=True)
 droplist = result['munic'].drop_duplicates().dropna().tolist()
+print('droplist')
 print(droplist) # list of munics we don't drop
+print('resultlist')
+print(resultlist)
+result3 = pd.DataFrame()
+for i in range(len(droplist)):
+    item = data3[data3['munic']==droplist[i]]
+    item['Subperiod 4'] = 0
+    item = item.loc[:, ['munic', 'Subperiod 4']].drop_duplicates().dropna()
+    result3 = result3.append(item, ignore_index=True)
+print(result3)
 
 #set up subperiods and merge with large file
 """for key, value in subperiods_dict.items():
