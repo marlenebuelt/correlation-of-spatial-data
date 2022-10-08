@@ -4,56 +4,55 @@ from tracemalloc import start
 import pandas as pd
 
 def subperiod1_start():
-    global startdate
-    startdate = pd.to_datetime('2011-1-1')
-    return startdate
+    global startdate1
+    startdate1 = pd.to_datetime('2011-1-1')
+    return startdate1
 
 def subperiod1_end():
-    global enddate
-    enddate = pd.to_datetime('2015-8-12')
-    return enddate
+    global enddate1
+    enddate1 = pd.to_datetime('2015-8-12')
+    return enddate1
 
 def subperiod2_start():
-    global startdate
-    startdate = pd.to_datetime('2016-1-1')
-    return startdate
+    global startdate2
+    startdate2 = pd.to_datetime('2016-1-1')
+    return startdate2
 
 def subperiod2_end():
-    global enddate
-    enddate = pd.to_datetime('2017-8-5')
-    return enddate
+    global enddate2
+    enddate2 = pd.to_datetime('2017-8-5')
+    return enddate2
 
 def subperiod3_start():
-    global startdate
-    startdate = pd.to_datetime('2017-8-13')
-    return startdate
+    global startdate3
+    startdate3 = pd.to_datetime('2017-8-13')
+    return startdate3
 
 def subperiod3_end():
-    global enddate
-    enddate = pd.to_datetime('2019-12-31')
-    return enddate
+    global enddate3
+    enddate3 = pd.to_datetime('2019-12-31')
+    return enddate3
 
 def subperiod4_start():
-    global startdate
-    startdate = pd.to_datetime('2017-8-13')
-    return startdate
+    global startdate4
+    startdate4 = pd.to_datetime('2016-01-01')
+    return startdate4
 
 def subperiod4_end():
-    global enddate
-    enddate = pd.to_datetime('2019-12-31')
-    return enddate
+    global enddate4
+    enddate4 = pd.to_datetime('2019-12-31')
+    return enddate4
 
 def subperiod5_start():
-    global startdate
-    startdate = pd.to_datetime('2011-1-1')
-    return startdate
+    global startdate5
+    startdate5 = pd.to_datetime('2011-1-1')
+    return startdate5
 
 def subperiod5_end():
-    global enddate
-    enddate = pd.to_datetime('2019-12-31')
-    return enddate
+    global enddate5
+    enddate5 = pd.to_datetime('2019-12-31')
+    return enddate5
 
-#iterate over this dict? --> might delete it, cant access it
 def SubperiodsDict():
     global SubperiodsDict
     SubperiodsDict = {'Subperiod 1': [subperiod1_start(), subperiod1_end()], 'Subperiod 2': [subperiod2_start(), subperiod2_end()], 
@@ -73,6 +72,6 @@ print(SubperiodsList())
 
 def SubperiodsNames():
     global SubperiodsNames
-    SubperiodsNames = ['Subperiod1', 'Subperiod2', 'Subperiod3', 'Subperiod4', 'Subperiod5']
+    SubperiodsNames = ['Subperiod 1', 'Subperiod 2', 'Subperiod 3', 'Subperiod 4', 'Subperiod 5']
     return SubperiodsNames
 print(SubperiodsNames())
