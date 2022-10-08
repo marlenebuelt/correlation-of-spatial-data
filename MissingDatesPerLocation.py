@@ -95,3 +95,9 @@ for i in range(len(all_subp)):
     result4 = pd.concat([result4, row.to_frame().T], ignore_index=True)  
     final4 = pd.merge(final4, result4, on='Name', how='outer')
 print(final4)
+
+results_merged = pd.DataFrame(columns=['Name'])
+results_merged = results_merged.append(final2)
+results_merged = results_merged.append(final3)
+results_merged = results_merged.append(final4)
+print(results_merged)
