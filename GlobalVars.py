@@ -68,10 +68,77 @@ def SubperiodsList():
     SubperiodsList = [subperiod1_start(), subperiod1_end(), subperiod2_start(), subperiod2_end(), 
         subperiod3_start(), subperiod3_end(), subperiod4_start(), subperiod4_end(), subperiod5_start(), subperiod5_end()]
     return SubperiodsList
-print(SubperiodsList())
+
 
 def SubperiodsNames():
     global SubperiodsNames
     SubperiodsNames = ['Subperiod 1', 'Subperiod 2', 'Subperiod 3', 'Subperiod 4', 'Subperiod 5']
     return SubperiodsNames
 print(SubperiodsNames())
+
+#get files (not the way getters and setters actually work, but the data is capsuled here)
+def getSubP1Path():
+    global dataSubP1
+    dataSubP1 = pd.read_csv('/Users/marlenebultemann/Desktop/HTW/UM/correlation-of-spatial-data/subperiods_data/subperiod1.csv')
+    return dataSubP1
+
+def getSubP2Path():
+    global dataSubP2
+    dataSubP2 = pd.read_csv('/Users/marlenebultemann/Desktop/HTW/UM/correlation-of-spatial-data/subperiods_data/subperiod2.csv')
+    return dataSubP2
+
+def getSubP3Path():
+    global dataSubP3
+    dataSubP3 = pd.read_csv('/Users/marlenebultemann/Desktop/HTW/UM/correlation-of-spatial-data/subperiods_data/subperiod3.csv')
+    return dataSubP3
+
+def getSubP4Path():
+    global dataSubP4
+    dataSubP4 = pd.read_csv('/Users/marlenebultemann/Desktop/HTW/UM/correlation-of-spatial-data/subperiods_data/subperiod4.csv')
+    return dataSubP4
+
+def getSubP5Path():
+    global dataSubP5
+    dataSubP5 = pd.read_csv('/Users/marlenebultemann/Desktop/HTW/UM/correlation-of-spatial-data/subperiods_data/subperiod5.csv')
+    return dataSubP5
+
+#reads all subPeriods, returns a list of adapted data
+def getAllSubPeriods():
+    global getAllSubPeriods
+    getAllSubPeriods = [getSubP1Path(), getSubP2Path(), getSubP3Path(), getSubP4Path(), getSubP5Path()]
+    for i in range(len(getAllSubPeriods)):
+        df = getAllSubPeriods[i]
+        df = df.loc[:10000,['munic','fdate', 'ETHANOLrp']]
+        df['fdate'] = pd.to_datetime(df['fdate'])
+    return getAllSubPeriods
+
+#files with NAN-values filled
+def setSubP1Final(df):
+    global dataSubP1Final
+    dataSubP1Final = df.to_csv('/Users/marlenebultemann/Desktop/HTW/UM/correlation-of-spatial-data/subperiods_final/subperiod1_final.csv')
+    return dataSubP1Final
+
+def setSubP2Final(df):
+    global dataSubP2Final
+    dataSubP2Final = df.to_csv('/Users/marlenebultemann/Desktop/HTW/UM/correlation-of-spatial-data/subperiods_final/subperiod2_final.csv')
+    return dataSubP2Final
+
+def setSubP3Final():
+    global dataSubP3Final
+    dataSubP3Final = pd.read_csv('/Users/marlenebultemann/Desktop/HTW/UM/correlation-of-spatial-data/subperiods_final/subperiod3_final.csv')
+    return dataSubP3Final
+
+def setSubP4Final():
+    global dataSubP4Final
+    dataSubP4Final = pd.read_csv('/Users/marlenebultemann/Desktop/HTW/UM/correlation-of-spatial-data/subperiods_final/subperiod4_final.csv')
+    return dataSubP4Final
+
+def setSubP5Final():
+    global dataSubP5Final
+    dataSubP5Final = pd.read_csv('/Users/marlenebultemann/Desktop/HTW/UM/correlation-of-spatial-data/subperiods_final/subperiod5_final.csv')
+    return dataSubP5Final
+
+def setfinalslist():
+    global getfinalslist
+    getfinalslist = [setSubP1Final(), setSubP2Final(), setSubP3Final(), setSubP4Final(), setSubP5Final()]
+    return getfinalslist
