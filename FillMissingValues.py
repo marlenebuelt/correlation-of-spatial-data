@@ -1,14 +1,14 @@
 import pandas as pd
-import GlobalVars as gv
 import math
+import SubperiodsPaths as spp
 
-getAllSubPeriods = gv.getAllSubPeriods()
+getAllSubPeriods = spp.getAllSubPeriods()
 finaldf = pd.DataFrame()
-setfinalslist = gv.setfinalslist
+setfinalslist = spp.setfinalslist()
 
 for i in range(len(getAllSubPeriods)):
     df = getAllSubPeriods[i]
-    finaldf = setfinalslist[i]
+    finaldf = pd.DataFrame()
     municList = df['munic'].drop_duplicates().dropna().tolist()
     for j in range(len(municList)): #slices the large dataframe into munics to avoid incorrect values when the first value in a row is missing
         municdf = df[df['munic']==municList[j]]
@@ -22,8 +22,5 @@ for i in range(len(getAllSubPeriods)):
             except:
                 fillna = 0
                 municdf = municdf.replace(to_replace = [df.iloc[k, 3]], value = fillna)
-        #print(municdf)
         finaldf = finaldf.append(municdf, ignore_index=True)
-    #print(finaldf)
-    finalcsv = setfinalslist(finaldf)
-    print(finalcsv)
+    finaldf.to_csv(setfinalslist[i])
