@@ -5,16 +5,30 @@ import numpy as np
 import SubperiodsDates as spd
 import SubperiodsPaths as spp
 #Problem: the result dataframe inserts zeros instead of NaN --> whenever that is fixed, insert total # of missing obs, total %, max length
-df = spp.getadaptedoriginalfile()
+df = spp.getOriginalFile()
 
 dateList = df['fdate'].drop_duplicates().dropna().tolist()
 result = pd.DataFrame(columns=['fdate'])
-result.set_index('fdate')
+subp_dict = spd.SubperiodsDict
+print(subp_dict)
+print(type(subp_dict.values()))
 
 #foreach einbauen
-for
+for key in subp_dict:
+    result_period = pd.DataFrame()
+    startenddatelist = subp_dict[key]
+    startdate = startenddatelist[0]
+    enddate = startenddatelist[1]
+    for i in range(len(dateList)):
+        date_df = df[(df['fdate']==dateList[i]) & (df['fdate']>startdate) & (df['fdate']<enddate)]
+        row = pd.Series({'fdate': dateList[i], key: date_df['ETHANOLrp'].isna().sum()})
+        result_period = pd.concat([result_period, row.to_frame().T], ignore_index=True)
+    print(result_period)
+    result = pd.merge(result, result_period, on='fdate', how='outer')
+print(result)
 
-#Subperiod 1
+
+"""Subperiod 1
 result1 = pd.DataFrame(columns=['fdate', 'Subperiod 1'])
 for i in range(len(dateList)):
     date_df = df[(df['fdate']==dateList[i]) & (df['fdate']>spd.subperiod1_start()) & (df['fdate']<spd.subperiod1_end())]
@@ -54,4 +68,4 @@ for i in range(len(dateList)):
     result_full = pd.concat([result_full, row.to_frame().T], ignore_index=True)
 result = pd.merge(result, result_full, on='fdate', how='outer')
 
-result.to_csv('/Users/marlenebultemann/Desktop/HTW/UM/correlation-of-spatial-data/missingByDate.csv')
+result.to_csv(spp.missingByDate())"""

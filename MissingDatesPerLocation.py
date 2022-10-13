@@ -1,42 +1,15 @@
 import pandas as pd
-import GlobalVars as gv
+import SubperiodsDates as spd
+import SubperiodsPaths as spp
 
-#TO DO: Check Values
 #looks at seperate csv-files of dropped periods and returns values
 
-#data = pd.read_csv('/Users/marlenebultemann/Desktop/HTW/UM/correlation-of-spatial-data/20220906Data2011_2020.csv')
-#data2 = data.loc[:10000,['munic','fdate', 'ETHANOLrp']]
-#data2['fdate'] = pd.to_datetime(data2['fdate'])
-
-data_subp1 = pd.read_csv('/Users/marlenebultemann/Desktop/HTW/UM/correlation-of-spatial-data/data_subperiods/subperiod1.csv')
-data_subp2 = pd.read_csv('/Users/marlenebultemann/Desktop/HTW/UM/correlation-of-spatial-data/data_subperiods/subperiod2.csv')
-data_subp3 = pd.read_csv('/Users/marlenebultemann/Desktop/HTW/UM/correlation-of-spatial-data/data_subperiods/subperiod3.csv')
-data_subp4 = pd.read_csv('/Users/marlenebultemann/Desktop/HTW/UM/correlation-of-spatial-data/data_subperiods/subperiod4.csv')
-data_subp5 = pd.read_csv('/Users/marlenebultemann/Desktop/HTW/UM/correlation-of-spatial-data/data_subperiods/subperiod5.csv')
-
-all_subp = [data_subp1, data_subp2, data_subp3, data_subp4, data_subp5]
-subp_list = gv.SubperiodsNames
+all_subp = spp.getAllSubPeriods()
+subp_list = spd.SubperiodsNames
 print(subp_list)
 
-for df in all_subp:
-    df = df.loc[:5000]
-    df['fdate'] = pd.to_datetime(df['fdate'])
-    totalobs = (df['ETHANOLrp'].count())
-
 final = pd.DataFrame(columns=['munic'])
-"""
-#returns nothing new
-for df in all_subp:
-    municList = df['munic'].drop_duplicates().dropna().tolist()
-    result = pd.DataFrame(columns=['munic'])
-    for i in range(len(municList)):
-        munic_df = df[df['munic']== municList[i]].isna().sum()
-        row = pd.Series({'munic': municList[i], 'key': munic_df.loc['ETHANOLrp']})
-        result = pd.concat([result, row.to_frame().T], ignore_index=True)
-    final = pd.merge(final, result, on='munic', how='outer')
-#final.to_csv('/Users/marlenebultemann/Desktop/HTW/UM/correlation-of-spatial-data/result.csv')
-print(final)
-"""
+
 #Missing # of obs, missing % of obs, max length missing ---> DOUBLE CHECK VALUES
 list = ['Missing # of obs', 'Missing % of obs', 'max length']
 
