@@ -72,4 +72,3 @@ def SubperiodsNames():
     SubperiodsNames = ['Subperiod 1', 'Subperiod 2', 'Subperiod 3', 'Subperiod 4', 'Subperiod 5']
     return SubperiodsNames
 print(SubperiodsNames())
-

@@ -5,6 +5,9 @@ import pandas as pd
 def getOriginalFile():
     global original_file
     original_file = pd.read_csv('/Users/marlenebultemann/Desktop/HTW/UM/correlation-of-spatial-data/resources/20220906Data2011_2020.csv')
+    original_file = original_file.loc[:10000,['fdate', 'munic', 'ETHANOLrp','GASOLINErp']]
+    original_file['fdate'] = pd.to_datetime(original_file['fdate'])
+    original_file = original_file.loc[~(original_file['fdate'] >= '2019-12-31')]
     return original_file
 
 def getSubP1Path():
@@ -42,14 +45,6 @@ def getAllSubPeriods():
         df['fdate'] = pd.to_datetime(df['fdate'])
     return getAllSubPeriods
 
-def getadaptedoriginalfile():
-    global df_adapted
-    df_adapted = getOriginalFile()
-    df_adapted = df_adapted.loc[:10000,['fdate', 'ETHANOLrp']]
-    df_adapted['fdate'] = pd.to_datetime(df_adapted['fdate'])
-    df_adapted = df_adapted.loc[~(df_adapted['fdate'] >= '2019-12-31')]
-    return df_adapted
-
 #files with NAN-values filled
 def setSubP1Final():
     global dataSubP1Final
@@ -80,3 +75,18 @@ def setfinalslist():
     global getfinalslist
     getfinalslist = [setSubP1Final(), setSubP2Final(), setSubP3Final(), setSubP4Final(), setSubP5Final()]
     return getfinalslist
+
+def maxCumulativesPerLocationEthanol():
+    global missingEthanol
+    missingEthanol = '/Users/marlenebultemann/Desktop/HTW/UM/correlation-of-spatial-data/resources/Missing_Ethanol.csv'
+    return missingEthanol
+
+def maxCumulativesPerLocationGasoline():
+    global missingGasoline
+    missingGasoline = '/Users/marlenebultemann/Desktop/HTW/UM/correlation-of-spatial-data/resources/Missing_Gasoline.csv'
+    return missingGasoline
+
+def missingByDate():
+    global missingDates
+    missingDates = '/Users/marlenebultemann/Desktop/HTW/UM/correlation-of-spatial-data/resources/missingByDate.csv'
+    return missingDates
