@@ -10,40 +10,42 @@ def getOriginalFile():
     original_file = original_file.loc[~(original_file['fdate'] >= '2019-12-31')]
     return original_file
 
-def getSubP1Path():
+#data after dropping municipalities #1 (see excel file with 1/0 for drop or keep)
+def getSubP1Path_drop1():
     global dataSubP1
     dataSubP1 = pd.read_csv('/Users/marlenebultemann/Desktop/HTW/UM/correlation-of-spatial-data/subperiods_data/subperiod1.csv')
     return dataSubP1
 
-def getSubP2Path():
+def getSubP2Path_drop1():
     global dataSubP2
     dataSubP2 = pd.read_csv('/Users/marlenebultemann/Desktop/HTW/UM/correlation-of-spatial-data/subperiods_data/subperiod2.csv')
     return dataSubP2
 
-def getSubP3Path():
+def getSubP3Path_drop1():
     global dataSubP3
     dataSubP3 = pd.read_csv('/Users/marlenebultemann/Desktop/HTW/UM/correlation-of-spatial-data/subperiods_data/subperiod3.csv')
     return dataSubP3
 
-def getSubP4Path():
+def getSubP4Path_drop1():
     global dataSubP4
     dataSubP4 = pd.read_csv('/Users/marlenebultemann/Desktop/HTW/UM/correlation-of-spatial-data/subperiods_data/subperiod4.csv')
     return dataSubP4
 
-def getSubP5Path():
+def getSubP5Path_drop1():
     global dataSubP5
     dataSubP5 = pd.read_csv('/Users/marlenebultemann/Desktop/HTW/UM/correlation-of-spatial-data/subperiods_data/subperiod5.csv')
     return dataSubP5
 
 #reads all subPeriods, returns a list of adapted data --> change length of frame here
-def getAllSubPeriods():
-    global getAllSubPeriods
-    getAllSubPeriods = [getSubP1Path(), getSubP2Path(), getSubP3Path(), getSubP4Path(), getSubP5Path()]
-    for i in range(len(getAllSubPeriods)):
-        df = getAllSubPeriods[i]
+def getAllSubP_drop1():
+    global getAllSubP_drop1
+    getAllSubP_drop1 = [getSubP1Path_drop1(), getSubP2Path_drop1(), getSubP3Path_drop1(), getSubP4Path_drop1(), getSubP5Path_drop1()]
+    for i in range(len(getAllSubP_drop1)):
+        df = getAllSubP_drop1[i]
         df = df.loc[:10000,['munic','fdate', 'ETHANOLrp']]
         df['fdate'] = pd.to_datetime(df['fdate'])
-    return getAllSubPeriods
+    return getAllSubP_drop1
+
 
 #missing values per location
 def missingValsSubp1():
