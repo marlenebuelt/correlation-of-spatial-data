@@ -45,6 +45,37 @@ def getAllSubPeriods():
         df['fdate'] = pd.to_datetime(df['fdate'])
     return getAllSubPeriods
 
+#missing values per location
+def missingValsSubp1():
+    global missingVals1
+    missingVals1 = '/Users/marlenebultemann/Desktop/HTW/UM/correlation-of-spatial-data/subperiods_missingvalues/subperiod1_missingvalues.csv'
+    return missingVals1
+
+def missingValsSubp2():
+    global missingVals2
+    missingVals2 = '/Users/marlenebultemann/Desktop/HTW/UM/correlation-of-spatial-data/subperiods_missingvalues/subperiod2_missingvalues.csv'
+    return missingVals2
+
+def missingValsSubp3():
+    global missingVals3
+    missingVals3 = '/Users/marlenebultemann/Desktop/HTW/UM/correlation-of-spatial-data/subperiods_missingvalues/subperiod3_missingvalues.csv'
+    return missingVals3
+
+def missingValsSubp4():
+    global missingVals4
+    missingVals4 = '/Users/marlenebultemann/Desktop/HTW/UM/correlation-of-spatial-data/subperiods_missingvalues/subperiod4_missingvalues.csv'
+    return missingVals4
+
+def missingValsSubp5():
+    global missingVals5
+    missingVals5 = '/Users/marlenebultemann/Desktop/HTW/UM/correlation-of-spatial-data/subperiods_missingvalues/subperiod1_missingvalues.csv'
+    return missingVals5
+
+def missingValsAll():
+    global missingvals
+    missingvals = [missingValsSubp1(),missingValsSubp2(),missingValsSubp3(),missingValsSubp4(),missingValsSubp5()]
+    return missingvals
+
 #files with NAN-values filled
 def setSubP1Final():
     global dataSubP1Final
