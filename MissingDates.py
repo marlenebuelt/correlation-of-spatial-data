@@ -10,7 +10,10 @@ df = spp.getadaptedoriginalfile()
 dateList = df['fdate'].drop_duplicates().dropna().tolist()
 result = pd.DataFrame(columns=['fdate'])
 result.set_index('fdate')
+
 #foreach einbauen
+for
+
 #Subperiod 1
 result1 = pd.DataFrame(columns=['fdate', 'Subperiod 1'])
 for i in range(len(dateList)):
