@@ -4,7 +4,6 @@ import SubperiodsPaths as spp
 # #looks at dataframes of dropped periods in detail
 # NOT CHECKED YET
 
-subp_dict = spd.SubperiodsDict
 subpall = spp.missingValsAll()
 counter = 0
 
@@ -22,3 +21,4 @@ for i in range(len(all_subp)):
         result_period = pd.concat([result_period, row.to_frame().T], ignore_index=True)
     result_period.to_csv(subpall[counter])
     counter = counter + 1
+    print(result_period)

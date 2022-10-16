@@ -1,22 +1,16 @@
 import pandas as pd
-import matplotlib.pyplot as plt
-import numpy as np
-import GlobalVars as gv
-#TO DO: Plot, replace all NA-Values
-#doublecheck values
+import SubperiodsPaths as spp
 
 #Returns the munics we'll drop in seperate csv-files
-df = pd.read_csv('/Users/marlenebultemann/Desktop/HTW/UM/correlation-of-spatial-data/20220906Data2011_2020.csv')
-dropfile = pd.read_csv('/Users/marlenebultemann/Desktop/HTW/UM/correlation-of-spatial-data/dropfile_new.csv', sep=';')
+df = pd.read_csv(spp.getOriginalFile())
+dropfile = pd.read_csv(spp.getDropFile, sep=';')
 dropfile = dropfile.loc[:,['munic', 'Subperiod 1', 'Subperiod 2', 'Subperiod 3', 'Subperiod 5']]
-df['fdate'] = pd.to_datetime(df['fdate'])
-df = df.loc[:5000, ['munic', 'fdate', 'ETHANOLrp']]
 print(dropfile)
 
 #subperiod 4
 df2 = df
-df2 = df2.loc[(df2['fdate']>gv.subperiod4_start())]
-df2 = df2.loc[(df2['fdate']<gv.subperiod4_end())]
+df2 = df2.loc[(df2['fdate']>spp.subperiod4_start())]
+df2 = df2.loc[(df2['fdate']<spp.subperiod4_end())]
 
 municList = df2['munic'].drop_duplicates().dropna().tolist()
 print(municList)
@@ -42,32 +36,6 @@ for i in range(len(resultlist)):
 result2 = result2.loc[:, ['munic']]
 result2 = result2.drop_duplicates()
 result2['Subperiod 4'] = 1
-
-#Dropped munics
-result = pd.DataFrame()
-df3 = df
-df3 = df3.loc[(df3['fdate']>gv.subperiod4_start())]
-df3 = df3.loc[(df3['fdate']<gv.subperiod4_end())]
-df_subperiod4_drop = pd.DataFrame()
-for i in range(len(municList)):
-    df_subperiod4_drop = df3[df3['munic']==municList[i]]
-    df_subperiod4_drop['Group']=df_subperiod4_drop.ETHANOLrp.notnull().astype(int).cumsum()
-    df_subperiod4_drop=df_subperiod4_drop[df_subperiod4_drop.ETHANOLrp.isnull()]
-    df_subperiod4_drop=df_subperiod4_drop[df_subperiod4_drop.Group.isin(df_subperiod4_drop.Group.value_counts()[df_subperiod4_drop.Group.value_counts()>=maxmissingweeks].index)]
-    df_subperiod4_drop['count']=df_subperiod4_drop.groupby('Group')['Group'].transform('size')
-    df_subperiod4_drop = df_subperiod4_drop.drop_duplicates(['Group'], keep='first')
-    result = result.append(df_subperiod4_drop, ignore_index=True)
-droplist = result['munic'].drop_duplicates().dropna().tolist()
-print(droplist) # list of munics we don't drop
-
-result3 = pd.DataFrame()
-for i in range(len(droplist)):
-    item = df3[df3['munic']==droplist[i]]
-    result3 = result3.append(item, ignore_index=True)
-result3 = result3.loc[:, ['munic']]
-result3 = result3.drop_duplicates()
-result3['Subperiod 4'] = 0
-result3.to_csv('/Users/marlenebultemann/Desktop/HTW/UM/correlation-of-spatial-data/data_subperiods/subperiod4_2.csv')
 
 result2 = pd.merge(df3, result2, on='munic', how='outer')
 result2.to_csv('/Users/marlenebultemann/Desktop/HTW/UM/correlation-of-spatial-data/data_subperiods/subperiod4.csv')

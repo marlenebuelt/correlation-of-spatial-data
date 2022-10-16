@@ -50,14 +50,12 @@ def subperiod5_end():
     enddate5 = pd.to_datetime('2019-12-31')
     return enddate5
 
-def SubperiodsDict():
+def SubperiodsDatesDict():
     global SubperiodsDict
     SubperiodsDict = {'Subperiod 1': [subperiod1_start(), subperiod1_end()], 'Subperiod 2': [subperiod2_start(), subperiod2_end()], 
         'Subperiod 3': [subperiod3_start(), subperiod3_end()], 'Subperiod 4': [subperiod4_start(), 
         subperiod4_end()],'Subperiod 5': [subperiod5_start(), subperiod5_end()]}
     return SubperiodsDict
-print(SubperiodsDict())
-print(SubperiodsDict.values())
 
 #lists
 def SubperiodsList():
