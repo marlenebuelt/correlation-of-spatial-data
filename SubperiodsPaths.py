@@ -12,7 +12,7 @@ def getOriginalFile():
 
 def getDropFile():
     global dropfile
-    dropfile = pd.read_csv('/Users/marlenebultemann/Desktop/HTW/UM/correlation-of-spatial-data/resources/dropfile_all_periods.csv')
+    dropfile = pd.read_csv('/Users/marlenebultemann/Desktop/HTW/UM/correlation-of-spatial-data/resources/dropfile_all_periods.csv', sep=';')
     return dropfile
 
 #dates before drop, original df sliced into subperiods
@@ -79,27 +79,27 @@ def getAllSubP_beforedrop():
 
 def setSubP1Path_afterdrop2():
     global dataSubP1_afterdrop2
-    dataSubP1_afterdrop2 = '/Users/marlenebultemann/Desktop/HTW/UM/subperiods_afterdrop_2/subperiod1_afterdrop2.csv'
+    dataSubP1_afterdrop2 = '/Users/marlenebultemann/Desktop/HTW/UM/correlation-of-spatial-data/subperiods_afterdrop_2/subperiod1_afterdrop2.csv'
     return dataSubP1_afterdrop2
 
 def setSubP2Path_afterdrop2():
     global dataSubP2_afterdrop2
-    dataSubP2_afterdrop2 = '/Users/marlenebultemann/Desktop/HTW/UM/subperiods_afterdrop_2/subperiod2_afterdrop2.csv'
+    dataSubP2_afterdrop2 = '/Users/marlenebultemann/Desktop/HTW/UM/correlation-of-spatial-data/subperiods_afterdrop_2/subperiod2_afterdrop2.csv'
     return dataSubP2_afterdrop2
 
 def setSubP3Path_afterdrop2():
     global dataSubP3_afterdrop2
-    dataSubP3_afterdrop2 = '/Users/marlenebultemann/Desktop/HTW/UM/subperiods_afterdrop_2/subperiod3_afterdrop2.csv'
+    dataSubP3_afterdrop2 = '/Users/marlenebultemann/Desktop/HTW/UM/correlation-of-spatial-data/subperiods_afterdrop_2/subperiod3_afterdrop2.csv'
     return dataSubP3_afterdrop2
 
 def setSubP4Path_afterdrop2():
     global dataSubP4_afterdrop2
-    dataSubP4_afterdrop2 = '/Users/marlenebultemann/Desktop/HTW/UM/subperiods_afterdrop_2/subperiod4_afterdrop2.csv'
+    dataSubP4_afterdrop2 = '/Users/marlenebultemann/Desktop/HTW/UM/correlation-of-spatial-data/subperiods_afterdrop_2/subperiod4_afterdrop2.csv'
     return dataSubP4_afterdrop2
 
 def setSubP5Path_afterdrop2():
     global dataSubP5_afterdrop2
-    dataSubP5_afterdrop2 = '/Users/marlenebultemann/Desktop/HTW/UM/subperiods_afterdrop_2/subperiod5_afterdrop2.csv'
+    dataSubP5_afterdrop2 = '/Users/marlenebultemann/Desktop/HTW/UM/correlation-of-spatial-data/subperiods_afterdrop_2/subperiod5_afterdrop2.csv'
     return dataSubP5_afterdrop2
 
 def setAllSubP_afterdrop2():
@@ -234,6 +234,37 @@ def missingValsAll():
     global missingvals
     missingvals = [missingValsSubp1(),missingValsSubp2(),missingValsSubp3(),missingValsSubp4(),missingValsSubp5()]
     return missingvals
+
+# Missing values by date and munic
+def setMissingByDateAndMunicSubP1Path():
+    global dataSubP1
+    dataSubP1 = '/Users/marlenebultemann/Desktop/HTW/UM/correlation-of-spatial-data/MissingByDateAndMunic/MissingByDateAndMunicSubperiod1.csv'
+    return dataSubP1
+
+def setMissingByDateAndMunicSubP2Path():
+    global dataSubP2
+    dataSubP2 = '/Users/marlenebultemann/Desktop/HTW/UM/correlation-of-spatial-data/MissingByDateAndMunic/MissingByDateAndMunicSubperiod2.csv'
+    return dataSubP2
+
+def setMissingByDateAndMunicSubP3Path():
+    global dataSubP3
+    dataSubP3 = '/Users/marlenebultemann/Desktop/HTW/UM/correlation-of-spatial-data/MissingByDateAndMunic/MissingByDateAndMunicSubperiod3.csv'
+    return dataSubP3
+
+def setMissingByDateAndMunicSubP4Path():
+    global dataSubP4
+    dataSubP4 = '/Users/marlenebultemann/Desktop/HTW/UM/correlation-of-spatial-data/MissingByDateAndMunic/MissingByDateAndMunicSubperiod4.csv'
+    return dataSubP4
+
+def setMissingByDateAndMunicSubP5Path():
+    global dataSubP5
+    dataSubP5 = '/Users/marlenebultemann/Desktop/HTW/UM/correlation-of-spatial-data/MissingByDateAndMunic/MissingByDateAndMunicSubperiod5.csv'
+    return dataSubP5
+
+def setMissingByDateAndMunicAll():
+    global missingByDateAndMunic
+    missingByDateAndMunic = [setMissingByDateAndMunicSubP1Path(),setMissingByDateAndMunicSubP2Path(),setMissingByDateAndMunicSubP3Path(),setMissingByDateAndMunicSubP4Path(),setMissingByDateAndMunicSubP5Path()]
+    return missingByDateAndMunic
 
 #files with NAN-values filled
 def setSubP1Final():
