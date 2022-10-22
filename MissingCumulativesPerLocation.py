@@ -3,7 +3,7 @@ import SubperiodsPaths as spp
 
 #NOT DOUBLECHECKED YET
 #inspired by: https://stackoverflow.com/questions/29007830/identifying-consecutive-nans-with-pandas
-all_subp = spp.getAllSubP_drop1()
+all_subp = spp.getAllSubP_afterdrop1()
 
 df = pd.DataFrame()
 result= pd.DataFrame()
@@ -23,3 +23,4 @@ for i in range(len(all_subp)):
         result = result.append(df, ignore_index=True)
     result = result[['munic', 'fdate', 'count']]
     result.to_csv(spp.maxCumulativesPerLocationEthanol())
+print(result)

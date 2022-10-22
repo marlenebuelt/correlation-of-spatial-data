@@ -4,6 +4,7 @@ import SubperiodsDates as spd
 #this categorization will delete any municipality that has more than four weeks missing in row
 #Returns the new files in seperate csv-files
 
+
 df_list = spp.getAllSubP_beforedrop()
 subp_dict = spd.SubperiodsDatesDict()
 result_csv_list = spp.setAllSubP_afterdrop2()
@@ -11,6 +12,8 @@ maxmissingweeks = 4
 
 for i in range(len(df_list)): 
     df = df_list[i]
+    df = df.dropna(subset=['munic'])
+    #print(df)
     municList = df['munic'].drop_duplicates().dropna().tolist()
     df_munic = pd.DataFrame()
     droplist = []
@@ -25,3 +28,4 @@ for i in range(len(df_list)):
     droplist = result['munic'].drop_duplicates()
     df = df[df.munic.isin(droplist)==False]
     df.to_csv(result_csv_list[i])
+    print(df)

@@ -76,7 +76,68 @@ def getAllSubP_beforedrop():
     getAllSubP_beforedrop = [getSubP1Path_beforedrop(), getSubP2Path_beforedrop(), getSubP3Path_beforedrop(), getSubP4Path_beforedrop(), getSubP5Path_beforedrop()]
     return getAllSubP_beforedrop
 
+#drop1
+def setSubP1Path_afterdrop1():
+    global dataSubP1_afterdrop1
+    dataSubP1_afterdrop1 = '/Users/marlenebultemann/Desktop/HTW/UM/correlation-of-spatial-data/subperiods_afterdrop_1/subperiod1_afterdrop1.csv'
+    return dataSubP1_afterdrop1
 
+def setSubP2Path_afterdrop1():
+    global dataSubP2_afterdrop1
+    dataSubP2_afterdrop1 = '/Users/marlenebultemann/Desktop/HTW/UM/correlation-of-spatial-data/subperiods_afterdrop_1/subperiod2_afterdrop1.csv'
+    return dataSubP2_afterdrop1
+
+def setSubP3Path_afterdrop1():
+    global dataSubP3_afterdrop1
+    dataSubP3_afterdrop1 = '/Users/marlenebultemann/Desktop/HTW/UM/correlation-of-spatial-data/subperiods_afterdrop_1/subperiod3_afterdrop1.csv'
+    return dataSubP3_afterdrop1
+
+def setSubP4Path_afterdrop1():
+    global dataSubP4_afterdrop1
+    dataSubP4_afterdrop1 = '/Users/marlenebultemann/Desktop/HTW/UM/correlation-of-spatial-data/subperiods_afterdrop_1/subperiod4_afterdrop1.csv'
+    return dataSubP4_afterdrop1
+
+def setSubP5Path_afterdrop1():
+    global dataSubP5_afterdrop1
+    dataSubP5_afterdrop1 = '/Users/marlenebultemann/Desktop/HTW/UM/correlation-of-spatial-data/subperiods_afterdrop_1/subperiod5_afterdrop1.csv'
+    return dataSubP5_afterdrop1
+
+def setAllSubP_afterdrop1():
+    global setAllSubP_afterdrop1
+    setAllSubP_afterdrop1 = [setSubP1Path_afterdrop1(), setSubP2Path_afterdrop1(), setSubP3Path_afterdrop1(), setSubP4Path_afterdrop1(), setSubP5Path_afterdrop1()]
+    return setAllSubP_afterdrop1
+
+def getSubP1Path_afterdrop1():
+    global subP1Path_afterdrop
+    subP1Path_afterdrop = pd.read_csv(setSubP1Path_afterdrop1())
+    return subP1Path_afterdrop
+
+def getSubP2Path_afterdrop1():
+    global subP2Path_afterdrop
+    subP2Path_afterdrop = pd.read_csv(setSubP2Path_afterdrop1())
+    return subP2Path_afterdrop
+
+def getSubP3Path_afterdrop1():
+    global subP3Path_afterdrop
+    subP3Path_afterdrop = pd.read_csv(setSubP3Path_afterdrop1())
+    return subP3Path_afterdrop
+
+def getSubP4Path_afterdrop1():
+    global subP4Path_afterdrop
+    subP4Path_afterdrop = pd.read_csv(setSubP4Path_afterdrop1())
+    return subP4Path_afterdrop
+
+def getSubP5Path_afterdrop1():
+    global subP5Path_afterdrop
+    subP5Path_afterdrop = pd.read_csv(setSubP5Path_afterdrop1())
+    return subP5Path_afterdrop
+
+def getAllSubP_afterdrop1():
+    global getAllSubP_afterdrop1
+    getAllSubP_afterdrop1 = [getSubP1Path_afterdrop1(), getSubP2Path_afterdrop1(), getSubP3Path_afterdrop1(), getSubP4Path_afterdrop1(), getSubP5Path_afterdrop1()]
+    return getAllSubP_afterdrop1
+
+#drop2
 def setSubP1Path_afterdrop2():
     global dataSubP1_afterdrop2
     dataSubP1_afterdrop2 = '/Users/marlenebultemann/Desktop/HTW/UM/correlation-of-spatial-data/subperiods_afterdrop_2/subperiod1_afterdrop2.csv'
@@ -133,45 +194,9 @@ def getSubP5Path_afterdrop2():
     return subP5Path_afterdrop
 
 def getAllSubP_afterdrop2():
-    global getAllSubP_beforedrop
-    getAllSubP_beforedrop = [getSubP1Path_afterdrop2(), getSubP2Path_afterdrop2(), getSubP3Path_afterdrop2(), getSubP4Path_afterdrop2(), getSubP5Path_afterdrop2()]
-    return getAllSubP_beforedrop
-
-#data after dropping municipalities #1 (see excel file with 1/0 for drop or keep)
-def getSubP1Path_drop1():
-    global dataSubP1
-    dataSubP1 = pd.read_csv('/Users/marlenebultemann/Desktop/HTW/UM/correlation-of-spatial-data/subperiods_data/subperiod1.csv')
-    return dataSubP1
-
-def getSubP2Path_drop1():
-    global dataSubP2
-    dataSubP2 = pd.read_csv('/Users/marlenebultemann/Desktop/HTW/UM/correlation-of-spatial-data/subperiods_data/subperiod2.csv')
-    return dataSubP2
-
-def getSubP3Path_drop1():
-    global dataSubP3
-    dataSubP3 = pd.read_csv('/Users/marlenebultemann/Desktop/HTW/UM/correlation-of-spatial-data/subperiods_data/subperiod3.csv')
-    return dataSubP3
-
-def getSubP4Path_drop1():
-    global dataSubP4
-    dataSubP4 = pd.read_csv('/Users/marlenebultemann/Desktop/HTW/UM/correlation-of-spatial-data/subperiods_data/subperiod4.csv')
-    return dataSubP4
-
-def getSubP5Path_drop1():
-    global dataSubP5
-    dataSubP5 = pd.read_csv('/Users/marlenebultemann/Desktop/HTW/UM/correlation-of-spatial-data/subperiods_data/subperiod5.csv')
-    return dataSubP5
-
-#reads all subPeriods, returns a list of adapted data --> change length of frame here
-def getAllSubP_drop1():
-    global getAllSubP_drop1
-    getAllSubP_drop1 = [getSubP1Path_drop1(), getSubP2Path_drop1(), getSubP3Path_drop1(), getSubP4Path_drop1(), getSubP5Path_drop1()]
-    for i in range(len(getAllSubP_drop1)):
-        df = getAllSubP_drop1[i]
-        df = df.loc[:10000,['munic','fdate', 'ETHANOLrp']]
-        df['fdate'] = pd.to_datetime(df['fdate'])
-    return getAllSubP_drop1
+    global getAllSubP_afterdrop2
+    getAllSubP_afterdrop2 = [getSubP1Path_afterdrop2(), getSubP2Path_afterdrop2(), getSubP3Path_afterdrop2(), getSubP4Path_afterdrop2(), getSubP5Path_afterdrop2()]
+    return getAllSubP_afterdrop2
 
 # get subp after drop 2 (more than 4 in row missing)
 def getSubP1Path_beforedrop():
@@ -205,34 +230,34 @@ def getAllSubP_beforedrop():
     return getAllSubP_beforedrop
 
 #missing values per location
-def missingValsSubp1():
+def setMissingValsSubp1():
     global missingVals1
     missingVals1 = '/Users/marlenebultemann/Desktop/HTW/UM/correlation-of-spatial-data/subperiods_missingvalues/subperiod1_missingvalues.csv'
     return missingVals1
 
-def missingValsSubp2():
+def setMissingValsSubp2():
     global missingVals2
     missingVals2 = '/Users/marlenebultemann/Desktop/HTW/UM/correlation-of-spatial-data/subperiods_missingvalues/subperiod2_missingvalues.csv'
     return missingVals2
 
-def missingValsSubp3():
+def setMissingValsSubp3():
     global missingVals3
     missingVals3 = '/Users/marlenebultemann/Desktop/HTW/UM/correlation-of-spatial-data/subperiods_missingvalues/subperiod3_missingvalues.csv'
     return missingVals3
 
-def missingValsSubp4():
+def setMissingValsSubp4():
     global missingVals4
     missingVals4 = '/Users/marlenebultemann/Desktop/HTW/UM/correlation-of-spatial-data/subperiods_missingvalues/subperiod4_missingvalues.csv'
     return missingVals4
 
-def missingValsSubp5():
+def setMissingValsSubp5():
     global missingVals5
-    missingVals5 = '/Users/marlenebultemann/Desktop/HTW/UM/correlation-of-spatial-data/subperiods_missingvalues/subperiod1_missingvalues.csv'
+    missingVals5 = '/Users/marlenebultemann/Desktop/HTW/UM/correlation-of-spatial-data/subperiods_missingvalues/subperiod5_missingvalues.csv'
     return missingVals5
 
-def missingValsAll():
+def setMissingValsAll():
     global missingvals
-    missingvals = [missingValsSubp1(),missingValsSubp2(),missingValsSubp3(),missingValsSubp4(),missingValsSubp5()]
+    missingvals = [setMissingValsSubp1(),setMissingValsSubp2(),setMissingValsSubp3(),setMissingValsSubp4(),setMissingValsSubp5()]
     return missingvals
 
 # Missing values by date and munic
@@ -301,11 +326,6 @@ def maxCumulativesPerLocationEthanol():
     global missingEthanol
     missingEthanol = '/Users/marlenebultemann/Desktop/HTW/UM/correlation-of-spatial-data/resources/Missing_Ethanol.csv'
     return missingEthanol
-
-def maxCumulativesPerLocationGasoline():
-    global missingGasoline
-    missingGasoline = '/Users/marlenebultemann/Desktop/HTW/UM/correlation-of-spatial-data/resources/Missing_Gasoline.csv'
-    return missingGasoline
 
 def missingByDate():
     global missingDates

@@ -3,7 +3,7 @@ import SubperiodsDates as spd
 import SubperiodsPaths as spp
 
 #restructures data to easily see missing values
-# not double checked yet
+
 all_subp = spp.getAllSubP_afterdrop2()
 
 final = pd.DataFrame(columns=['munic'])
@@ -21,3 +21,4 @@ for i in range(len(all_subp)):
         result[municList[j]] = df_munic.loc[:,['ETHANOLrp']]
         final= pd.merge(final, result, on='fdate', how='left')
     final.to_csv(resultcsvlist[i])
+    print(final)

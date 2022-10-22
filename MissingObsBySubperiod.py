@@ -4,7 +4,7 @@ import SubperiodsPaths as spp
 
 #looks at seperate csv-files of dropped periods and returns values
 
-all_subp = spp.getAllSubP_drop1()
+all_subp = spp.getAllSubP_afterdrop1()
 subp_list = spd.SubperiodsNames
 
 final = pd.DataFrame(columns=['munic'])

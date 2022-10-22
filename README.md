@@ -16,7 +16,7 @@ returns a large table of missing observations by date and municipalities
 Cumulative sums of missing weeks
 
 ## MissingObsByDate
-returns how many municipalities didn't enter values on a specific date
+returns how many municipalities didn't enter values on a specific date. Returns five seperate files due to merge errors.
 
 ## MissingObsBySubperiod
 Number, percent and max length of missing obs
@@ -31,7 +31,9 @@ attempts to plot the timeline per municipality showing missing and non-missing i
 slices the original file into subperiods
 
 ## SubperiodsDates
+all dates of the subperiods are saved here.
 
 ## SubperiodsPaths
+provides get() and set() methods for all files. Change paths to your local folders here.
 
 ### Link to GitHub repository: https://github.com/marlenebuelt/correlation-of-spatial-data
