@@ -35,5 +35,3 @@ all dates of the subperiods are saved here.
 
 ## SubperiodsPaths
 provides get() and set() methods for all files. Change paths to your local folders here.
-
-### Link to GitHub repository: https://github.com/marlenebuelt/correlation-of-spatial-data
